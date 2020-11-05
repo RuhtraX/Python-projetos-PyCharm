@@ -13,12 +13,14 @@ for c in range(0, 5):
 print('Os valores digitados foram: ', end='')
 print(valores)
 for index, v in enumerate(valores):
-    if v == maior:                                                     ###### ARRUMAR ########3
-        print('{}...'.format(index))
+    if v == maior:
+        print('O MAIOR número encontrado foi {} e ele está na {}ª posição'.format(maior, index))
     if v == menor:
-        print('{}...'.format(index))
-print('O MAIOR número encontrado foi {} e ele está na {}ª posição'.format(maior, index))
-print('O MENOR número encontrado foi {} e ele está na {}ª posição'.format(menor, index)
+        print('O MENOR número encontrado foi {} e ele está na {}ª posição'.format(menor, index))
+
+
+
+
 
 
 

@@ -1,2 +1,4 @@
 from playsound import playsound
-playsound('01 Livin on a Prayer.mp3')
+playsound('LivinOnAPrayer.mp3')
+
+
