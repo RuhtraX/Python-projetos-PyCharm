@@ -1,4 +1,5 @@
-#verificar se uma expressão é valida ou não de acordo com a quantidade de parenteses abertos e fechados
+#Crie um programa onde o usuário digite uma expressão qualquer que use parênteses.
+# Seu aplicativo deverá analisar se a expressão passada está com os parênteses abertos e fechados na ordem correta.
 expr = str(input('Digite sua expressão: '))
 pilha = []
 for simb in expr:

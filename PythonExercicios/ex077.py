@@ -1,3 +1,6 @@
+#Crie um programa que tenha uma tupla com várias palavras (não usar acentos). Depois disso,
+# você deve mostrar, para cada palavra, quais são as suas vogais.
+
 #palavras = ('Ramo', 'Ralador', 'Bola', 'Escorregador', 'Rinoceronte', 'Rim', 'Helicóptero', 'Branco', 'Elefante', 'Facebook')
 #for c in palavras:
 #    print('\nNa palavra {} tem as vogais '.format(c.upper()), end='')
