@@ -1,5 +1,7 @@
-# ler vários números inteiros e só parar qdo o usuário digitar 999. Ao final mostrar a média
-# entre todos os números que foram digitados e mostrar o maior e menor valor digitados.
+# Crie um programa que leia vários números inteiros pelo teclado. No final da execução,
+# mostre a média entre todos os valores e qual foi o maior e o menor valores lidos.
+# O programa deve perguntar ao usuário se ele quer ou não continuar a digitar valores.
+
 #n = int(input('Digite um número inteiro: '))
 n = 0
 cont = 0

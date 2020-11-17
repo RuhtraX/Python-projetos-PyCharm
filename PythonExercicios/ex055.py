@@ -1,4 +1,4 @@
-# ler o peso de cinco pessoas e no final mostrar o maior e o menor peso lidos
+#Faça um programa que leia o peso de cinco pessoas. No final, mostre qual foi o maior e o menor peso lidos.
 maior = 0
 menor = 0
 for pessoa in range(1, 6):
@@ -11,4 +11,4 @@ for pessoa in range(1, 6):
             maior = peso
         if peso < menor:
             menor = peso
-print('O menor peso lido foi {}Kg e o maior foi {}Kg.'.format(menor,maior))
+print('O menor peso lido foi {}Kg e o maior foi {}Kg.'.format(menor, maior))

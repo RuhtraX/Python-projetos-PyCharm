@@ -1,5 +1,10 @@
-# programa que lê dois valores e mostra um menu na tela.
-# o programa deverá realizar a operação em cada caso.
+# Crie um programa que leia dois valores e mostre um menu na tela:
+# [ 1 ] somar
+# [ 2 ] multiplicar
+# [ 3 ] maior
+# [ 4 ] novos números
+# [ 5 ] sair do programa
+# Seu programa deverá realizar a operação solicitada em cada caso.
 from time import sleep
 n1 = int(input('Digite o primeiro valor: '))
 n2 = int(input('Digite o segundo valor: '))

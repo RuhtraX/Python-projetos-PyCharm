@@ -1,4 +1,4 @@
-#verificar se um número é PRIMO ou NÃO
+#Faça um programa que leia um número inteiro e diga se ele é ou não um número primo.
 num = int(input('Digite um número inteiro: '))
 tot = 0 #contabiliza quantas vezes o número foi divisível por um contador(c)
 for c in range(1, num+1): #faz uma contagem de 1 até o numero escolhido

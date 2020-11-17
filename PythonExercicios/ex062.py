@@ -1,6 +1,5 @@
-# refazer o exercicio 61. mostrar a progressão aritimética dos
-# 10 primeiros termos de um número e depois solicitar qtos termos mais o usuário
-# quer mostrar até que digite zero
+# Melhore o DESAFIO 061, perguntando para o usuário se ele quer mostrar
+# mais alguns termos. O programa encerrará quando ele disser que quer mostrar 0 termos.
 primeiro = int(input('Primeiro termo: '))
 razao = int(input('Razão da PA: '))
 termo = primeiro

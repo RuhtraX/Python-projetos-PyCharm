@@ -1,4 +1,4 @@
-# ler um numero qualquer e mostrar seu fatorial
+# Faça um programa que leia um número qualquer e mostre o seu fatorial.
 # Ex.: 5  - fatorial de 5 é: 5*4*3*2*1=120
 
 #num = int(input('Digite um número inteiro para saber o seu fatorial: '))

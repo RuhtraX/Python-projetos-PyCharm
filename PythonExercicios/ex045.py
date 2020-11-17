@@ -1,3 +1,4 @@
+#Crie um programa que faça o computador jogar Jokenpô com você.
 import emoji
 from time import sleep
 from random import choice

@@ -1,4 +1,4 @@
-#verifica se há condição para formar um triângulo
+#Desenvolva um programa que leia o comprimento de três retas e diga ao usuário se elas podem ou não formar um triângulo.
 print('Analisador de Triângulos')
 print('-='*20)
 r1 = float(input('Primeiro seguimento: '))

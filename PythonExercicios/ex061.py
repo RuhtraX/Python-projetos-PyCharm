@@ -1,5 +1,5 @@
-# refazer o exercicio 51. mostrar a progressão aritimética dos
-# 10 primeiros termos de um número
+# Refaça o DESAFIO 051, lendo o primeiro termo e a razão de uma PA, mostrando os
+# 10 primeiros termos da progressão usando a estrutura while.
 primeirotermo = int(input('Primeiro termo: '))
 razao = int(input('Razão da PA: '))
 cont = 1

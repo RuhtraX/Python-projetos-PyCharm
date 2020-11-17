@@ -1,3 +1,4 @@
+#Faça um programa que leia um número Inteiro e mostre na tela o seu sucessor e seu antecessor.
 n=int(input('\033[1;30;42mdigite um número inteiro: \033[m'))
 suc=n+1
 ant=n-1

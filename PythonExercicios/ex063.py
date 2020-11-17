@@ -1,5 +1,5 @@
-# ler um número inteiro "n" qualquer e mostre na tela os "n" primeiros
-# elementos de uma sequência de fibonacci
+# Escreva um programa que leia um número N inteiro qualquer e mostre na tela
+# os N primeiros elementos de uma Sequência de Fibonacci.
 n = int(input('Quantos termos você quer mostrar?  '))
 t1 = 0
 t2 = 1

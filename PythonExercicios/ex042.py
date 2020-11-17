@@ -1,4 +1,7 @@
-#verifica se há condição para formar um triângulo
+#Refaça o DESAFIO 035 dos triângulos, acrescentando o recurso de mostrar que tipo de triângulo será formado:
+#- EQUILÁTERO: todos os lados iguais
+#- ISÓSCELES: dois lados iguais, um diferente
+#- ESCALENO: todos os lados diferentes
 print('Analisador de Triângulos')
 print('-='*20)
 r1 = float(input('Primeiro seguimento: '))

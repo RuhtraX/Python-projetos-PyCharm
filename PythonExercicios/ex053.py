@@ -1,6 +1,6 @@
-#verificar se o que foi escrito é um PALÍNDROMO (frases ou palavras que lidas de frente para tras
-# ou de tras para frente, desconsiderando os espaços e os acentos, são a mesma coisa. Ex: arara, kaiak,
-# amor a roma...)
+# Crie um programa que leia uma frase qualquer e diga se ela é um palíndromo
+# (palavras ou frases lidas de trás para a frente que o resultado é igual, desconsiderando os espaços).
+# Ex: arara, kaiak, amor a roma...)
 frase = str(input('Digite uma frase qualquer: ')).strip().upper()
 palavras = frase.split()
 junto = ''.join(palavras)

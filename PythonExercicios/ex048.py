@@ -1,4 +1,5 @@
-#programa que calcula a soma entre todos os números ímpares multiplos de 3 que estão estre 1 e 500
+#Faça um programa que calcule a soma entre todos os números que são múltiplos de três e que se
+# encontram no intervalo de 1 até 500.
 soma = 0
 cont = 0
 for c in range(1, 501, 2): #contagem de 1 a 500 pulando de 2 em 2 para mostrar apenas os ímpares
