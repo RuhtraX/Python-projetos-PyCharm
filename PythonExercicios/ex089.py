@@ -5,11 +5,10 @@
 listatotal = []
 lista = []
 while True:
-    nome = str(input('Digite o nome do aluno: '))
-    nota1 = float(input('Digite a primeira nota: '))
-    nota2 = float(input('Digite a segunda nota: '))
-    lista.append(nome)
-    listatotal.append(lista)
+    alunoNotas = (str(input('Digite o nome do aluno: ')), int(input('Digite a primeira nota: ')), int(input('Digite a segunda nota: ')))
+    lista.append(alunoNotas)
+    listatotal.append(lista[:])
+    lista.clear()
     print('-='*20)
     resp = str(input('Deseja continuar [S/N]? ')).strip().upper()[0]
     while resp not in 'NS':
@@ -19,7 +18,9 @@ while True:
         continue
     else:
         break
-print(listatotal)
+for c[0] in listatotal:
+    print('{} média igual a {}'.format(c, lista[1] / lista[2]))
+    
 
 
 

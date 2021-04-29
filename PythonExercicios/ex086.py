@@ -24,9 +24,9 @@ lista3[1].append(n)
 n = int(input('Digite um numero: '))
 lista3[2].append(n)
 
-print(lista1)
-print(lista2)
-print(lista3)
+print(lista1[0], lista1[1], lista1[2])
+print(lista2[0], lista2[1], lista2[2])
+print(lista3[0], lista3[1], lista3[2])
 
 ###SUGESTÃO PROFESSOR
 matriz = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]

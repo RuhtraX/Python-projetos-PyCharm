@@ -14,4 +14,13 @@ for linha in range(0, 3):
         if matriz[linha][coluna] % 2 == 0:
             somapares += matriz[linha][coluna]
     print()
-print(somapares)
+print('A soma de todos os valores pares digitados é igual a {}'.format(somapares))
+for linha in range(0, 3):
+    somaterceiracoluna += matriz[linha][2]
+print('A soma dos valores da terceira coluna é igual a {}'.format(somaterceiracoluna))
+for c in range(0, 3):
+    if c == 0:
+        maior = matriz[1][c]
+    elif matriz[1][c] > maior:
+        maior = matriz[1][c]
+print('O maior valor da segunda linha é igual a {}'.format(maior))
