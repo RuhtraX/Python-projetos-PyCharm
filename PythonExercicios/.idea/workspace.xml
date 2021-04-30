@@ -2,17 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6b9f70ce-914c-43e0-8e32-a872582683cd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TCC_ProfCristiano.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/PythonExercicios.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/PythonExercicios.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ex085.py" beforeDir="false" afterPath="$PROJECT_DIR$/ex085.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ex086.py" beforeDir="false" afterPath="$PROJECT_DIR$/ex086.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ex087.py" beforeDir="false" afterPath="$PROJECT_DIR$/ex087.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ex088.py" beforeDir="false" afterPath="$PROJECT_DIR$/ex088.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ex089.py" beforeDir="false" afterPath="$PROJECT_DIR$/ex089.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testebootcamp.py" beforeDir="false" afterPath="$PROJECT_DIR$/testebootcamp.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TCC_ProfCristiano.py" beforeDir="false" afterPath="$PROJECT_DIR$/TCC_ProfCristiano.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

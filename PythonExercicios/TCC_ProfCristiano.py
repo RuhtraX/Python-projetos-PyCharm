@@ -1,56 +1,18 @@
-# from time import sleep
-# print('==========STOCK CAR ==========')
-# print('CONTROLE DE ESTOQUE')
-# print('1 - Cadastrar peça\n2 - Procurar peça\n3 - Alterar peça\n4 - Deletar peça\n5 - Sair')
-# opcao = int(input('Digite a opção desejada: '))
-# pecasCadastradas = []
-# qtdePecas = []
-# while opcao != 5:
-#     #cadastrar peça
-#     if opcao == 1:
-#         descricao = str(input('Digite a descrição da peça: ')).strip().upper()
-#         pecasCadastradas.append(descricao)
-#         qtdeDesc = int(input('Digite a quantidade desta peça: '))
-#         qtdePecas.append(qtdeDesc)
-#     #procurar peça
-#     if opcao == 2:
-#         item = str(input('Digite a descrição da peça: ')).strip().upper()
-#         for pc in pecasCadastradas:
-#             if item == pc:
-#                 print(item)
-#                 print(qtdePecas)
-#             else:
-#                 print('Peça não encontrada! Tente novamente.')
-#     #alterar peça
-#     if opcao == 3:
-#         alterar = str(input('Digite a descrição da peça: ')).strip().upper()
-#         for pc in pecasCadastradas:
-#             if alterar == pc:
-#                 resposta = str(input('Tem certeza que deseja deletar a peça? [S/N] ')).strip().upper()
-#                 if ###################################################################################
-#                 pecasCadastradas.pop(alterar)
-#                 print('Digite a nova descrição da peça: ')
-#                 pecasCadastradas.append(alterar)
-#             else:
-#                 print('Peça não encontrada! Tente novamente.')
-#     #deletar peça
-#     if opcao == 4:
-#         deletar = str('Digite a descrição da peça: ').strip().upper()
-#         for pc in pecasCadastradas:
-#             if deletar == pc:
-#                 pecasCadastradas.pop(deletar)
-#                 print('Peça deletada com sucesso!')
-#             else:
-#                 print('Peça não encontrada! Tente novamente.')
-#     #sair
-#     if opcao == 5:
-#         sleep(1)
-#         print('Saindo...')
-#     opcao = int(input('Digite a opção desejada: '))
-
+# coding: utf-8
 from time import sleep
+from tkinter import *
+from playsound import playsound
+
 cadastroPecas = []
 pecasCadastradas = []
+root = Tk()
+menubar = Menu(root)
+#Configurações da janela (tamanho, ícone, título)
+root.geometry("600x425")
+root.resizable(0, 0)
+root.title("Stock Car")
+root.configure(background='blue')
+
 #1
 def CadastrarPeca():
     cadastroPecas.append(str(input('Digite a descrição da peça: ')).strip().upper())
@@ -180,6 +142,7 @@ def Sair():
 
 titulo1 = '\033[1;32mSTOCK CAR\033[m'
 titulo2 = '\033[7;30mCONTROLE DE ESTOQUE\033[m'
+#playsound('topgear.mp3')
 print(titulo1.center(50, '='))
 print(titulo2.center(50))
 print('1 - Cadastrar peça\n2 - Procurar peça\n3 - Alterar peça\n4 - Deletar peça\n5 - Comprar peça\n6 - Vender peça\n7 - Visualizar estoque\n8 - Sair')
@@ -211,6 +174,40 @@ while opcao != 8:
     print('\033[1m-\033[m' * 40)
     opcao = int(input('Digite a opção desejada: '))
     print('\n')
+#cria botão 1
+enterButton1 = Button(root, text="Cadastrar Peça", command=CadastrarPeca)
+enterButton1.config(height=2, width=30)
+enterButton1.place(x=30, y=50)
+#cria botão 2
+enterButton1 = Button(root, text="Procurar Peça", command=ProcurarPeca)
+enterButton1.config(height=2, width=30)
+enterButton1.place(x=30, y=100)
+#cria botão 3
+enterButton1 = Button(root, text="Alterar Peça", command=AlterarPeca)
+enterButton1.config(height=2, width=30)
+enterButton1.place(x=30, y=150)
+#cria botão 4
+enterButton1 = Button(root, text="Deletar Peça", command=DeletarPeca)
+enterButton1.config(height=2, width=30)
+enterButton1.place(x=30, y=200)
+#cria botão 5
+enterButton1 = Button(root, text="Comprar Peça", command=ComprarPeca)
+enterButton1.config(height=2, width=30)
+enterButton1.place(x=30, y=250)
+#cria botão 6
+enterButton1 = Button(root, text="Vender Peça", command=VenderPeca)
+enterButton1.config(height=2, width=30)
+enterButton1.place(x=30, y=300)
+#cria botão 7
+enterButton1 = Button(root, text="Visualizar Estoque", command=VisualizarEstq)
+enterButton1.config(height=2, width=30)
+enterButton1.place(x=30, y=350)
+#cria botão 8
+enterButton1 = Button(root, text="Sair", command=Sair)
+enterButton1.config(height=2, width=10)
+enterButton1.place(x=500, y=350)
+
+root.mainloop()
 
 
 
