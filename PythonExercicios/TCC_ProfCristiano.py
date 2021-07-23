@@ -1,10 +1,338 @@
-# coding: utf-8
 from time import sleep
 from tkinter import *
-from playsound import playsound
+from tkinter import messagebox
+import numpy as np
+
 
 cadastroPecas = []
 pecasCadastradas = []
+
+#1
+#________________________________________________FUNÇÃO CADASTRAR PEÇA__________________________________________________
+def CadastrarPeca():
+    def cadastro():
+        cadastroPecas.append(str(caixadesc.get()).strip().upper())
+        cadastroPecas.append(str(caixaqtd.get()).strip().upper())
+        pecasCadastradas.append(cadastroPecas[:])
+        cadastroPecas.clear()
+        messagebox.showinfo("Cadastrar", "Peça cadastrada com sucesso!")
+        janela_cadastrar.destroy()
+    janela_cadastrar = Toplevel(root)#comando cria nova janela filha através da janela principal(janela_menu)
+    janela_cadastrar.geometry("600x425")
+    janela_cadastrar.resizable(0, 0)
+    janela_cadastrar.title("Cadastrar Peça")
+    janela_cadastrar.configure(background='grey')
+    text = Label(janela_cadastrar, text="Digite a descrição da peça: ", font=("Quentine", 12,), fg="black",
+    background="#E6E6FA")
+    text.place(x=30, y=50)
+    caixadesc = StringVar()
+    caixadescBox = Entry(janela_cadastrar, textvariable=caixadesc, font=("Quentine", 12,), fg="black")
+    caixadescBox.place(x=30, y=100, width=205, height=30)
+    text = Label(janela_cadastrar, text="Digite a quantidade da peça: ", font=("Quentine", 12,), fg="black",
+    background="#E6E6FA")
+    text.place(x=30, y=200)
+    caixaqtd = StringVar()
+    caixaqtdBox = Entry(janela_cadastrar, textvariable=caixaqtd, font=("Quentine", 12,), fg="black")
+    caixaqtdBox.place(x=30, y=250, width=215, height=30)
+    enterButton1 = Button(janela_cadastrar, text="OK", command=cadastro)
+    enterButton1.config(height=2, width=10)
+    enterButton1.place(x=500, y=350)
+
+#2
+def ProcurarPeca():
+    def procurar():
+        item = str(caixaqtd.get()).strip().upper()
+        pecaEncontrada = False
+        o = -1
+        for pc in pecasCadastradas:
+            o = o + 1
+            if pc[0] == item:
+               messagebox.showinfo("Procurar", ("Peça encontrada: {}".format(pecasCadastradas[o])))
+               pecaEncontrada = True
+               break
+        if pecaEncontrada == False:
+            pecaEncontrada = True
+            messagebox.showinfo("Procurar", "Item não encontrado! Favor verificar se a peça esta cadastrada e tente novamente.")
+
+        janela_procura.destroy()
+    janela_procura = Toplevel(root)
+    janela_procura.geometry("600x425")
+    janela_procura.title("Procurar Peça")
+    janela_procura.configure(background='grey')
+    text = Label(janela_procura, text="Digite a descrição da peça: ", font=("Quentine", 12,), fg="black",
+                 background="#E6E6FA")
+    text.place(x=30, y=50)
+    caixaqtd = StringVar()
+    caixaqtdBox = Entry(janela_procura, textvariable=caixaqtd, font=("Quentine", 12,), fg="black")
+    caixaqtdBox.place(x=30, y=100, width=205, height=30)
+    enterButton1 = Button(janela_procura, text="OK", command=procurar)
+    enterButton1.config(height=2, width=10)
+    enterButton1.place(x=500, y=350)
+
+#3
+def AlterarPeca():
+    def procurar():
+        item = str(caixaqtd5.get()).strip().upper()
+        pecaEncontrada = False
+        o = -1
+        for pc in pecasCadastradas:
+            o = o + 1
+            if pc[0] == item:
+                messagebox.showinfo("Procurar", ("Peça encontrada: {}!".format(pecasCadastradas[o])))
+                pecaEncontrada = True
+                def troca():
+                    if messagebox.askokcancel("Alterar", "Tem certeza que deseja alterar a peça?"):
+                        novaDescricao = str(caixaNovoNome.get()).strip().upper()
+                        pecasCadastradas[o][0] = novaDescricao[:]
+                        print(pecasCadastradas)
+                        messagebox.showinfo("Alterar", "Peça alterada com sucesso!")
+                        novaJanelaAlterar.destroy()
+                        janela_procura.destroy()
+
+                novaJanelaAlterar = Toplevel(root)
+                novaJanelaAlterar.geometry("600x425")
+                novaJanelaAlterar.title("Alterar Peça")
+                novaJanelaAlterar.configure(background='yellow')
+                text = Label(novaJanelaAlterar, text="Digite a NOVA descrição da peça: ", font=("Quentine", 12,), fg="black",
+                             background="#E6E6FA")
+                text.place(x=30, y=50)
+                caixaNovoNome = StringVar()
+                caixaNovoNomeBox = Entry(novaJanelaAlterar, textvariable=caixaNovoNome, font=("Quentine", 12,), fg="black")
+                caixaNovoNomeBox.place(x=30, y=100, width=205, height=30)
+                enterButton1 = Button(novaJanelaAlterar, text="OK", command=troca)
+                enterButton1.config(height=2, width=10)
+                enterButton1.place(x=500, y=350)
+                break
+        if pecaEncontrada == False:
+            pecaEncontrada = True
+            messagebox.showinfo("Procurar", "Item não encontrado! Favor verificar se a peça esta cadastrada e tente novamente.")
+
+    janela_procura = Toplevel(root)
+    janela_procura.geometry("600x425")
+    janela_procura.title("Alterar Peça")
+    janela_procura.configure(background='grey')
+    text = Label(janela_procura, text="Digite a descrição da peça: ", font=("Quentine", 12,), fg="black",
+                 background="#E6E6FA")
+
+    text.place(x=30, y=60)
+    caixaqtd5 = StringVar()
+    caixaqtd5Box = Entry(janela_procura, textvariable=caixaqtd5, font=("Quentine", 12,), fg="black")
+    caixaqtd5Box.place(x=30, y=100, width=205, height=30)
+    enterButton1 = Button(janela_procura, text="Procurar Peça", command=procurar)
+    enterButton1.config(height=2, width=12)
+    enterButton1.place(x=500, y=350)
+
+#4
+def DeletarPeca():
+    def procurar():
+        item = str(caixadelete.get()).strip().upper()
+        pecaEncontrada = False
+        j = -1
+        for pc in pecasCadastradas:
+            j = j + 1
+            if pc[0] == item:
+                messagebox.showinfo("Procurar", ("Peça encontrada: {}!".format(pecasCadastradas[j])))
+                pecaEncontrada = True
+
+                def deletar():
+                    if messagebox.askokcancel("Deletar", "Tem certeza que deseja deletar a peça?"):
+                        pecasCadastradas[j] = "0"
+                        messagebox.showinfo("Deletar", "Peça deletada com sucesso!")
+                        novaJanelaDeletar.destroy()
+                        janela_procura.destroy()
+
+                novaJanelaDeletar = Toplevel(root)
+                novaJanelaDeletar.geometry("600x425")
+                novaJanelaDeletar.title("Deletar Peça")
+                novaJanelaDeletar.configure(background='red')
+                text = Label(novaJanelaDeletar, text="Digite a peça a ser deletada: ", font=("Quentine", 12,), fg="black",
+                             background="#E6E6FA")
+                text.place(x=30, y=50)
+                caixaDeletar = StringVar()
+                caixaDeletarBox = Entry(novaJanelaDeletar, textvariable=caixaDeletar, font=("Quentine", 12,), fg="black")
+                caixaDeletarBox.place(x=30, y=100, width=205, height=30)
+                enterButton1 = Button(novaJanelaDeletar, text="OK", command=deletar)
+                enterButton1.config(height=2, width=10)
+                enterButton1.place(x=500, y=350)
+                break
+        if pecaEncontrada == False:
+            pecaEncontrada = True
+            messagebox.showinfo("Deletar", "Item não encontrado! Favor verificar se a peça esta cadastrada e tente novamente.")
+
+    janela_procura = Toplevel(root)
+    janela_procura.geometry("600x425")
+    janela_procura.title("Deletar Peça")
+    janela_procura.configure(background='grey')
+    text = Label(janela_procura, text="Digite a descrição da peça: ", font=("Quentine", 12,), fg="black",
+                 background="#E6E6FA")
+
+    text.place(x=30, y=60)
+    caixadelete = StringVar()
+    caixadeleteBox = Entry(janela_procura, textvariable=caixadelete, font=("Quentine", 12,), fg="black")
+    caixadeleteBox.place(x=30, y=100, width=205, height=30)
+    enterButton1 = Button(janela_procura, text="Procurar Peça", command=procurar)
+    enterButton1.config(height=2, width=12)
+    enterButton1.place(x=500, y=350)
+
+#5
+def ComprarPeca():
+    def procurar():
+        item = str(caixaComprar2.get()).strip().upper()
+        pecaEncontrada = False
+        j = -1
+        for pc in pecasCadastradas:
+            j = j + 1
+            if pc[0] == item:
+                messagebox.showinfo("Procurar", ("Peça encontrada: {}!".format(pecasCadastradas[j])))
+                pecaEncontrada = True
+                print(j)
+
+                def comprar():
+
+                    if messagebox.askokcancel("Comprar", "Tem certeza que deseja comprar a peça?"):
+                        print(j)
+                        print(item)
+
+                        novaqtd = int(caixaComprarqtd.get())
+                        qtdpeca = pecasCadastradas[j][1]
+                        qtdpeca = int(qtdpeca)
+                        novovalor = novaqtd + qtdpeca
+                        novovalor = str(novovalor)
+
+                        pecasCadastradas[j][1] = novovalor[:]
+
+
+                        messagebox.showinfo("Comprar", "Peça comprada com sucesso!")
+                        print(pecasCadastradas)
+                        novaJanelaComprar.destroy()
+                        janela_procura.destroy()
+
+                        #pecasCadastradas[j] = "0"
+
+                novaJanelaComprar = Toplevel(root)
+                novaJanelaComprar.geometry("600x425")
+                novaJanelaComprar.title("Comprar Peça")
+                novaJanelaComprar.configure(background='green')
+
+                text = Label(novaJanelaComprar, text="Digite a quantidade da peça: ", font=("Quentine", 12,),
+                             fg="black",
+                             background="#E6E6FA")
+                text.place(x=30, y=50)
+                caixaComprarqtd = StringVar()
+                caixaComprarqtdBox = Entry(novaJanelaComprar, textvariable=caixaComprarqtd, font=("Quentine", 12,),
+                                        fg="black")
+                caixaComprarqtdBox.place(x=30, y=100, width=205, height=30)
+
+                enterButton1 = Button(novaJanelaComprar, text="OK", command=comprar)
+                enterButton1.config(height=2, width=10)
+                enterButton1.place(x=500, y=350)
+
+                break
+        if pecaEncontrada == False:
+            pecaEncontrada = True
+            messagebox.showinfo("Comprar", "Item não encontrado! Favor verificar se a peça esta cadastrada e tente novamente.")
+
+    janela_procura = Toplevel(root)
+    janela_procura.geometry("600x425")
+    janela_procura.title("Comprar Peça")
+    janela_procura.configure(background='grey')
+    text = Label(janela_procura, text="Digite a descrição da peça: ", font=("Quentine", 12,), fg="black",
+                 background="#E6E6FA")
+
+    text.place(x=30, y=60)
+    caixaComprar2 = StringVar()
+    caixaComprar2Box = Entry(janela_procura, textvariable=caixaComprar2, font=("Quentine", 12,), fg="black")
+    caixaComprar2Box.place(x=30, y=100, width=205, height=30)
+    enterButton1 = Button(janela_procura, text="Procurar Peça", command=procurar)
+    enterButton1.config(height=2, width=12)
+    enterButton1.place(x=500, y=350)
+
+#6
+def VenderPeca():
+    def procurar():
+        item = str(caixaVender2.get()).strip().upper()
+        pecaEncontrada = False
+        m = -1
+        for pc in pecasCadastradas:
+            m = m + 1
+            if pc[0] == item:
+                messagebox.showinfo("Procurar", ("Peça encontrada: {}!".format(pecasCadastradas[m])))
+                pecaEncontrada = True
+
+                def vender():
+
+                    if messagebox.askokcancel("Vender", "Tem certeza que deseja vender a peça?"):
+
+                        novaqtd = int(caixaVenderqtd.get())
+                        qtdpeca = pecasCadastradas[m][1]
+                        qtdpeca = int(qtdpeca)
+                        novovalor = qtdpeca - novaqtd
+                        novovalor = str(novovalor)
+
+                        pecasCadastradas[m][1] = novovalor[:]
+
+                        messagebox.showinfo("Vender", "Peça vendida com sucesso!")
+                        novaJanelaVender.destroy()
+                        janela_procura.destroy()
+
+
+                novaJanelaVender = Toplevel(root)
+                novaJanelaVender.geometry("600x425")
+                novaJanelaVender.title("Vender Peça")
+                novaJanelaVender.configure(background='black')
+
+                text = Label(novaJanelaVender, text="Digite a quantidade da peça: ", font=("Quentine", 12,),
+                             fg="black",
+                             background="#E6E6FA")
+                text.place(x=30, y=50)
+                caixaVenderqtd = StringVar()
+                caixaVenderqtdBox = Entry(novaJanelaVender, textvariable=caixaVenderqtd, font=("Quentine", 12,),
+                                           fg="black")
+                caixaVenderqtdBox.place(x=30, y=100, width=205, height=30)
+
+                enterButton1 = Button(novaJanelaVender, text="OK", command=vender)
+                enterButton1.config(height=2, width=10)
+                enterButton1.place(x=500, y=350)
+
+                break
+        if pecaEncontrada == False:
+            pecaEncontrada = True
+            messagebox.showinfo("Vender",
+                                "Item não encontrado! Favor verificar se a peça esta cadastrada e tente novamente.")
+
+    janela_procura = Toplevel(root)
+    janela_procura.geometry("600x425")
+    janela_procura.title("Vender Peça")
+    janela_procura.configure(background='grey')
+    text = Label(janela_procura, text="Digite a descrição da peça: ", font=("Quentine", 12,), fg="black",
+                 background="#E6E6FA")
+
+    text.place(x=30, y=60)
+    caixaVender2 = StringVar()
+    caixaVender2Box = Entry(janela_procura, textvariable=caixaVender2, font=("Quentine", 12,), fg="black")
+    caixaVender2Box.place(x=30, y=100, width=205, height=30)
+    enterButton1 = Button(janela_procura, text="Procurar Peça", command=procurar)
+    enterButton1.config(height=2, width=12)
+    enterButton1.place(x=500, y=350)
+#7
+def VisualizarEstq():
+    janela_visualizaEstoque= Toplevel(root)
+    janela_visualizaEstoque.geometry("600x425")
+    janela_visualizaEstoque.title("Visualizar Estoque")
+    janela_visualizaEstoque.configure(background='purple')
+
+    for x in pecasCadastradas:
+        text = Label(janela_visualizaEstoque, text=(pecasCadastradas), font=("Quentine", 12,), fg="black",
+                     background="#E6E6FA")
+
+        text.place(x=30, y=60)
+
+#8
+def Sair():
+    sleep(0.07)
+    messagebox.showinfo("StockCaindo","Saindo...")
+    root.destroy()
+
 root = Tk()
 menubar = Menu(root)
 #Configurações da janela (tamanho, ícone, título)
@@ -13,171 +341,47 @@ root.resizable(0, 0)
 root.title("Stock Car")
 root.configure(background='blue')
 
-#1
-def CadastrarPeca():
-    cadastroPecas.append(str(input('Digite a descrição da peça: ')).strip().upper())
-    cadastroPecas.append(int(input('Digite a quantidade desta peça: ')))
-    pecasCadastradas.append(cadastroPecas[:])
-    cadastroPecas.clear()
-    sleep(1)
-    print('\n')
-#2
-def ProcurarPeca():
-    item = str(input('Digite a descrição da peça: ')).strip().upper()
-    pecaEncontrada = False
-    for pc in pecasCadastradas:
-        if pc[0] == item:
-            print(pc)
-            pecaEncontrada = True
-            break
-    if pecaEncontrada == False:
-        print('Item não encontrado! Favor verificar se a peça esta cadastrada e tente novamente.')
-    sleep(1)
-    print('\n')
-#3
-def AlterarPeca():
-    alterar = str(input('Digite a descrição da peça: ')).strip().upper()
-    i = -1
-    pecaAlterada = False
-    for pc in pecasCadastradas:
-        i = i + 1
-        if pc[0] == alterar:
-            pecaAlterada = True
-            print(pc)
-            resposta = str(input('Tem certeza que deseja alterar a peça? [S/N] ')).strip().upper()[0]
-            if resposta == 'S':
-                novaDescricao = (str(input('Digite a nova descrição da peça: '))).strip().upper()
-                pecasCadastradas[i][0] = novaDescricao[:]
-                print(pecasCadastradas)
-                print('Peça cadastrada com sucesso!')
-                break
-    if pecaAlterada == False:
-        print('Item não encontrado! Favor verificar se a peça esta cadastrada e tente novamente.')
-    sleep(1)
-    print('\n')
-
-#4
-def DeletarPeca():
-    deletarPeca = str(input('Digite a descrição da peça: ')).strip().upper()
-    j = -1
-    pecaDeletada = False
-    for itemD in pecasCadastradas:
-        j = j + 1
-        if itemD[0] == deletarPeca:
-            pecaDeletada = True
-            print(itemD)
-            sleep(0.5)
-            print('\n')
-            print('\033[1;36mAVISO! A peça será deletada juntamente com sua quantidade!\033[m')
-            print('\n')
-            resposta = str(input('Tem certeza que deseja deletar a peça? [S/N] ')).strip().upper()[0]
-            if resposta == "S":
-                pecasCadastradas[j] = ''
-                #pecasCadastradas.remove(j)
-                print('Peça deletada com sucesso!')
-                break
-    if pecaDeletada == False:
-        print('Item não encontrado! Favor verificar se a peça esta cadastrada e tente novamente.')
-    sleep(1)
-    print('\n')
-#5
-def ComprarPeca():
-    comprarPeca = str(input("Digite a peça a ser comprada: ")).strip().upper()
-    k = -1
-    pecaComprada = False
-    for itemC in pecasCadastradas:
-        k = k + 1
-        if itemC[0] == comprarPeca:
-            pecaComprada = True
-            print(itemC)
-            sleep(0.5)
-            novaCompra = int(input('Quantos itens deseja adicionar?  '))
-            nova = pecasCadastradas[k][1] + novaCompra
-            nova = str(nova)
-            pecasCadastradas[k][1] = nova[:]
-            print(pecasCadastradas)
-            print('Peça comprada com sucesso!')
-            pecasCadastradas[k][1] = int(pecasCadastradas[k][1])
-            break
-    if pecaComprada == False:
-        print('Item não encontrado! Favor verificar se a peça esta cadastrada e tente novamente.')
-    sleep(1)
-    print('\n')
-#6
-def VenderPeca():
-    venderPeca = str(input("Digite a peça a ser vendida: ")).strip().upper()
-    v = -1
-    pecaVendida = False
-    for itemV in pecasCadastradas:
-        v = v + 1
-        if itemV[0] == venderPeca:
-            pecaVendida = True
-            print(itemV)
-            sleep(0.5)
-            novaVenda = int(input('Quantos itens deseja vender?  '))
-            novaV = pecasCadastradas[v][1] - novaVenda
-            novaV = str(novaV)
-            pecasCadastradas[v][1] = novaV[:]
-            print(pecasCadastradas)
-            print('Peça vendida com sucesso!')
-            pecasCadastradas[v][1] = int(pecasCadastradas[v][1])
-            break
-    if pecaVendida == False:
-        print('Item não encontrado! Favor verificar se a peça esta cadastrada e tente novamente.')
-    sleep(1)
-    print('\n')
-#7
-def VisualizarEstq():
-    sleep(0.5)
-    print('PROCESSANDO...')
-    print('\n')
-    sleep(1)
-    print(pecasCadastradas)
-    sleep(1)
-    print('\n')
-#8
-def Sair():
-    sleep(1)
-    print('SAINDO...')
-
-titulo1 = '\033[1;32mSTOCK CAR\033[m'
-titulo2 = '\033[7;30mCONTROLE DE ESTOQUE\033[m'
-#playsound('topgear.mp3')
-print(titulo1.center(50, '='))
-print(titulo2.center(50))
-print('1 - Cadastrar peça\n2 - Procurar peça\n3 - Alterar peça\n4 - Deletar peça\n5 - Comprar peça\n6 - Vender peça\n7 - Visualizar estoque\n8 - Sair')
-print('\033[1m-\033[m' * 40)
-opcao = int(input('Digite a opção desejada: '))
-print('\n')
-while opcao != 8:
-    if opcao == 1:
-        CadastrarPeca()
-    elif opcao == 2:
-        ProcurarPeca()
-    elif opcao == 3:
-        AlterarPeca()
-    elif opcao == 4:
-        DeletarPeca()
-    elif opcao == 5:
-        ComprarPeca()
-    elif opcao == 6:
-        VenderPeca()
-    elif opcao == 7:
-        VisualizarEstq()
-    elif opcao == 8:
-        Sair()
+def menu():
     titulo1 = '\033[1;32mSTOCK CAR\033[m'
     titulo2 = '\033[7;30mCONTROLE DE ESTOQUE\033[m'
+    #playsound('topgear.mp3')
     print(titulo1.center(50, '='))
     print(titulo2.center(50))
     print('1 - Cadastrar peça\n2 - Procurar peça\n3 - Alterar peça\n4 - Deletar peça\n5 - Comprar peça\n6 - Vender peça\n7 - Visualizar estoque\n8 - Sair')
     print('\033[1m-\033[m' * 40)
     opcao = int(input('Digite a opção desejada: '))
     print('\n')
+    while opcao != 8:
+        if opcao == 1:
+            CadastrarPeca()
+        elif opcao == 2:
+            ProcurarPeca()
+        elif opcao == 3:
+            AlterarPeca()
+        elif opcao == 4:
+            DeletarPeca()
+        elif opcao == 5:
+            ComprarPeca()
+        elif opcao == 6:
+            VenderPeca()
+        elif opcao == 7:
+            VisualizarEstq()
+        elif opcao == 8:
+            Sair()
+        titulo1 = '\033[1;32mSTOCK CAR\033[m'
+        titulo2 = '\033[7;30mCONTROLE DE ESTOQUE\033[m'
+        print(titulo1.center(50, '='))
+        print(titulo2.center(50))
+        print('1 - Cadastrar peça\n2 - Procurar peça\n3 - Alterar peça\n4 - Deletar peça\n5 - Comprar peça\n6 - Vender peça\n7 - Visualizar estoque\n8 - Sair')
+        print('\033[1m-\033[m' * 40)
+        opcao = int(input('Digite a opção desejada: '))
+        print('\n')
+
 #cria botão 1
 enterButton1 = Button(root, text="Cadastrar Peça", command=CadastrarPeca)
 enterButton1.config(height=2, width=30)
 enterButton1.place(x=30, y=50)
+
 #cria botão 2
 enterButton1 = Button(root, text="Procurar Peça", command=ProcurarPeca)
 enterButton1.config(height=2, width=30)
