@@ -12,7 +12,7 @@ class ButtonView(QWidget):
 class PrimaryPushButtonDemo(ButtonView):
     def __init__(self):
         super().__init__()
-        self.windowTitle = 'Estoque Car'
+        self.setWindowTitle('Estoque Car')
 
         # push button
         self.btnCadastrar = PrimaryPushButton('Cadastar Peça')
