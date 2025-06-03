@@ -75,7 +75,6 @@ def AlterarPeca():
 					if messagebox.askokcancel("Alterar", "Tem certeza que deseja alterar a peça?"):
 						novaDescricao = str(caixaNovoNome.get()).strip().upper()
 						pecasCadastradas[o][0] = novaDescricao[:]
-						print(pecasCadastradas)
 						messagebox.showinfo("Alterar", "Peça alterada com sucesso!")
 						novaJanelaAlterar.destroy()
 						janela_procura.destroy()
@@ -184,7 +183,6 @@ def ComprarPeca():
 						pecasCadastradas[j][1] = novovalor[:]
 
 						messagebox.showinfo("Comprar", "Peça comprada com sucesso!")
-						print(pecasCadastradas)
 						novaJanelaComprar.destroy()
 						janela_procura.destroy()
 
@@ -308,7 +306,7 @@ if __name__ == "__main__":
 	#Configurações da janela (tamanho, ícone, título)
 	root.geometry("600x425")
 	root.resizable(0, 0)
-	root.title("Stock Car")
+	root.title("Estoque Car")
 	root.configure(background='blue')
 
 	#cria botão 1
