@@ -1,2 +1,3 @@
-# Python-projetos-PyCharm
-Exercícios de Python do Curso em Vídeo
+# Python-projetos
+
+Exercícios de Python _não somente_ do Curso em Vídeo
