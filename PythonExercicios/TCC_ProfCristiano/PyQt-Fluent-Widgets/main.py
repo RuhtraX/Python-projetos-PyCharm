@@ -4,10 +4,10 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QWidget, QGridLayout
 from qfluentwidgets import (PrimaryPushButton, LineEdit, MessageBoxBase, SubtitleLabel, PushButton)
 
-class messageBoxCadastrar(MessageBoxBase):
-    def __init__(self, parent=None):
+class messageBoxPeca(MessageBoxBase):
+    def __init__(self, acao, parent=None):
         super().__init__(parent)
-        self.titleLabel = SubtitleLabel('Cadastrar Peça', self)
+        self.titleLabel = SubtitleLabel(f'{acao} Peça', self)
         self.lineEdit = LineEdit(self)
 
         self.lineEdit.setPlaceholderText('Informe a peça')
@@ -17,7 +17,7 @@ class messageBoxCadastrar(MessageBoxBase):
         self.viewLayout.addWidget(self.titleLabel)
         self.viewLayout.addWidget(self.lineEdit)
 
-        self.yesButton.setText('Cadastrar')
+        self.yesButton.setText(acao)
         self.cancelButton.setText('Cancelar')
 
         self.widget.setMinimumWidth(350)
@@ -34,8 +34,9 @@ class EstoqueCar(ButtonView):
 
         # push button
         self.btnCadastrar = PrimaryPushButton('Cadastar Peça')
-        self.btnCadastrar.clicked.connect(self.showCadastrar)
+        self.btnCadastrar.clicked.connect(self.cadastrar)
         self.btnProcurar = PrimaryPushButton('Procurar Peça')
+        self.btnProcurar.clicked.connect(self.procurar)
         self.btnAlterar = PrimaryPushButton('Alterar Peça')
         self.btnDeletar = PrimaryPushButton('Deletar Peça')
         self.btnComprar = PrimaryPushButton('Comprar Peça')
@@ -55,12 +56,16 @@ class EstoqueCar(ButtonView):
         self.gridLayout.addWidget(self.btnSair, 7, 1)
         self.setFixedSize(360, 0)
 
-    def showCadastrar(self):
-        w = messageBoxCadastrar(self)
+    def cadastrar(self):
+        w = messageBoxPeca('Cadastrar', self)
         if w.exec():
             peca = w.lineEdit.text()
             print(peca.upper())
-
+    def procurar(self):
+        w = messageBoxPeca('Procurar', self)
+        if w.exec():
+            peca = w.lineEdit.text()
+            print(peca.upper())
 
 if __name__ == '__main__':
     # enable dpi scale
