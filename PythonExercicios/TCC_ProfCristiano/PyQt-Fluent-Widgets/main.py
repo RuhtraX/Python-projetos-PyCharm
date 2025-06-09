@@ -1,6 +1,5 @@
 import sys
 
-from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QWidget, QGridLayout
 from qfluentwidgets import (PrimaryPushButton, LineEdit, MessageBoxBase, SubtitleLabel, PushButton)
 
@@ -8,14 +7,17 @@ class messageBoxPeca(MessageBoxBase):
     def __init__(self, acao, parent=None):
         super().__init__(parent)
         self.titleLabel = SubtitleLabel(f'{acao} Peça', self)
-        self.lineEdit = LineEdit(self)
+        self.linePeca = LineEdit(self)
 
-        self.lineEdit.setPlaceholderText('Informe a peça')
-        self.lineEdit.setClearButtonEnabled(True)
+        self.linePeca.setPlaceholderText('Informe a peça')
 
         # Adicionar os widgets
         self.viewLayout.addWidget(self.titleLabel)
-        self.viewLayout.addWidget(self.lineEdit)
+        self.viewLayout.addWidget(self.linePeca)
+        if acao == 'Cadastrar':
+            self.lineQtd = LineEdit(self)
+            self.lineQtd.setPlaceholderText('Informe a quantidade')
+            self.viewLayout.addWidget(self.lineQtd)
 
         self.yesButton.setText(acao)
         self.cancelButton.setText('Cancelar')
@@ -34,9 +36,9 @@ class EstoqueCar(ButtonView):
 
         # push button
         self.btnCadastrar = PrimaryPushButton('Cadastar Peça')
-        self.btnCadastrar.clicked.connect(self.cadastrar)
+        self.btnCadastrar.clicked.connect(self.showCadastrar)
         self.btnProcurar = PrimaryPushButton('Procurar Peça')
-        self.btnProcurar.clicked.connect(self.procurar)
+        self.btnProcurar.clicked.connect(self.showProcurar)
         self.btnAlterar = PrimaryPushButton('Alterar Peça')
         self.btnDeletar = PrimaryPushButton('Deletar Peça')
         self.btnComprar = PrimaryPushButton('Comprar Peça')
@@ -56,24 +58,19 @@ class EstoqueCar(ButtonView):
         self.gridLayout.addWidget(self.btnSair, 7, 1)
         self.setFixedSize(360, 0)
 
-    def cadastrar(self):
+    def showCadastrar(self):
         w = messageBoxPeca('Cadastrar', self)
         if w.exec():
-            peca = w.lineEdit.text()
-            print(peca.upper())
-    def procurar(self):
+            peca = w.linePeca.text()
+            qtd = w.lineQtd.text()
+            print(f'{peca.upper()}: {qtd}')
+    def showProcurar(self):
         w = messageBoxPeca('Procurar', self)
         if w.exec():
             peca = w.lineEdit.text()
             print(peca.upper())
 
 if __name__ == '__main__':
-    # enable dpi scale
-    QApplication.setHighDpiScaleFactorRoundingPolicy(
-        Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)
-    QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
-    QApplication.setAttribute(Qt.AA_UseHighDpiPixmaps)
-
     app = QApplication(sys.argv)
 
     w1 = EstoqueCar()
