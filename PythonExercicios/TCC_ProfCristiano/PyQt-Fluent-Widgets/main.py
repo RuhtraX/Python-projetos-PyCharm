@@ -1,10 +1,34 @@
 import sys
 
-from PyQt5.QtWidgets import QApplication, QWidget, QGridLayout
+from PyQt5.QtWidgets import QApplication, QWidget, QGridLayout, QVBoxLayout, QTableWidgetItem
 from PyQt5.QtGui import QIntValidator
-from qfluentwidgets import PrimaryPushButton, LineEdit, MessageBoxBase, SubtitleLabel, PushButton, ComboBox
+from qfluentwidgets import PrimaryPushButton, LineEdit, MessageBoxBase, SubtitleLabel, PushButton, ComboBox, TableWidget
 
 listaPecas = []
+
+class TabelaEstoque(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle('Estoque')
+        self.vBoxLayout = QVBoxLayout(self)
+        self.tableView = TableWidget(self)
+
+        self.tableView.setBorderVisible(True)
+        self.tableView.setBorderRadius(4)
+
+        self.tableView.setColumnCount(2)
+
+        self.AtualizaTabela()
+
+        self.tableView.setHorizontalHeaderLabels(['Nome', 'Quantidade'])
+        self.vBoxLayout.addWidget(self.tableView)
+        self.setMinimumSize(240, 180)
+
+    def AtualizaTabela(self):
+        self.tableView.setRowCount(len(listaPecas))
+        for i, peca in enumerate(listaPecas):
+            for j in range(2):
+                self.tableView.setItem(i, j, QTableWidgetItem(str(peca[j])))
 
 class messageBoxPeca(MessageBoxBase):
     def __init__(self, acao, parent=None):
@@ -26,7 +50,7 @@ class messageBoxPeca(MessageBoxBase):
         self.yesButton.setText(acao)
         self.cancelButton.setText('Cancelar')
 
-        self.widget.setMinimumWidth(350)
+        self.widget.setMinimumWidth(320)
 
 class comboBoxPeca(MessageBoxBase):
     def __init__(self, acao, parent=None):
@@ -37,7 +61,7 @@ class comboBoxPeca(MessageBoxBase):
         self.comboBox.setPlaceholderText('Selecione a peça')
 
         for peca in listaPecas:
-            self.comboBox.addItem(peca['nome'])
+            self.comboBox.addItem(peca[0])
 
         self.comboBox.setCurrentIndex(-1)
 
@@ -54,7 +78,7 @@ class comboBoxPeca(MessageBoxBase):
         self.yesButton.setText(acao)
         self.cancelButton.setText('Cancelar')
 
-        self.widget.setMinimumWidth(350)
+        self.widget.setMinimumWidth(320)
 
 class ButtonView(QWidget):
     def __init__(self):
@@ -78,6 +102,7 @@ class EstoqueCar(ButtonView):
         self.btnVender = PrimaryPushButton('Vender Peça')
         self.btnVender.clicked.connect(self.showVender)
         self.btnVisualizar = PrimaryPushButton('Visualizar Estoque')
+        self.btnVisualizar.clicked.connect(self.showEstoque)
         self.btnSair = PushButton('Sair')
         self.btnSair.clicked.connect(self.close)
 
@@ -96,34 +121,38 @@ class EstoqueCar(ButtonView):
         if w.exec():
             peca = w.linePeca.text().upper()
             qtd = int(w.lineQtd.text())
-            listaPecas.append({'nome': peca, 'qtd': qtd})
+            listaPecas.append([peca, qtd])
     def showAlterar(self):
         w = comboBoxPeca('Alterar', self)
         if w.exec():
             indice = w.comboBox.currentIndex()
             novaPeca = w.lineEdit.text().upper()
-            listaPecas[indice]['nome'] = novaPeca
+            listaPecas[indice][0] = novaPeca
     def showExcluir(self):
         w = comboBoxPeca('Excluir', self)
         if w.exec():
             indice = w.comboBox.currentIndex()
-            print(f'Removido item {listaPecas.pop(indice)}')
+            listaPecas.pop(indice)
     def showComprar(self):
         w = comboBoxPeca('Comprar', self)
         if w.exec():
             indice = w.comboBox.currentIndex()
             qtd = int(w.lineEdit.text())
-            listaPecas[indice]['qtd'] += qtd
+            listaPecas[indice][1] += qtd
     def showVender(self):
         w = comboBoxPeca('Vender', self)
         if w.exec():
             indice = w.comboBox.currentIndex()
             qtd = int(w.lineEdit.text())
-            listaPecas[indice]['qtd'] -= qtd
+            listaPecas[indice][1] -= qtd
+    def showEstoque(self):
+        w2.AtualizaTabela()
+        w2.show()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
 
     w1 = EstoqueCar()
+    w2 = TabelaEstoque()
     w1.show()
     app.exec_()
