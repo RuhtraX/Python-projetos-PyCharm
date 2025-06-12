@@ -122,31 +122,35 @@ class EstoqueCar(ButtonView):
             peca = w.linePeca.text().upper()
             qtd = int(w.lineQtd.text())
             listaPecas.append([peca, qtd])
+            w2.AtualizaTabela()
     def showAlterar(self):
         w = comboBoxPeca('Alterar', self)
         if w.exec():
             indice = w.comboBox.currentIndex()
             novaPeca = w.lineEdit.text().upper()
             listaPecas[indice][0] = novaPeca
+            w2.AtualizaTabela()
     def showExcluir(self):
         w = comboBoxPeca('Excluir', self)
         if w.exec():
             indice = w.comboBox.currentIndex()
             listaPecas.pop(indice)
+            w2.AtualizaTabela()
     def showComprar(self):
         w = comboBoxPeca('Comprar', self)
         if w.exec():
             indice = w.comboBox.currentIndex()
             qtd = int(w.lineEdit.text())
             listaPecas[indice][1] += qtd
+            w2.AtualizaTabela()
     def showVender(self):
         w = comboBoxPeca('Vender', self)
         if w.exec():
             indice = w.comboBox.currentIndex()
             qtd = int(w.lineEdit.text())
             listaPecas[indice][1] -= qtd
+            w2.AtualizaTabela()
     def showEstoque(self):
-        w2.AtualizaTabela()
         w2.show()
 
 if __name__ == '__main__':
