@@ -45,10 +45,10 @@ class comboBoxPeca(MessageBoxBase):
         self.viewLayout.addWidget(self.comboBox)
         if acao != 'Excluir':
             self.lineEdit = LineEdit(self)
-            self.lineEdit.setValidator(QIntValidator(1, 99, self))
             if acao == 'Alterar':
                 self.lineEdit.setPlaceholderText('Informe o novo nome')
             else:
+                self.lineEdit.setValidator(QIntValidator(1, 99, self))
                 self.lineEdit.setPlaceholderText('Informe a quantidade')
             self.viewLayout.addWidget(self.lineEdit)
         self.yesButton.setText(acao)
@@ -69,8 +69,6 @@ class EstoqueCar(ButtonView):
         # push button
         self.btnCadastrar = PrimaryPushButton('Cadastar Peça')
         self.btnCadastrar.clicked.connect(self.showCadastrar)
-        self.btnProcurar = PrimaryPushButton('Procurar Peça')
-        self.btnProcurar.clicked.connect(self.showProcurar)
         self.btnAlterar = PrimaryPushButton('Alterar Peça')
         self.btnAlterar.clicked.connect(self.showAlterar)
         self.btnDeletar = PrimaryPushButton('Excluir Peça')
@@ -85,13 +83,12 @@ class EstoqueCar(ButtonView):
 
         self.gridLayout = QGridLayout(self)
         self.gridLayout.addWidget(self.btnCadastrar, 0, 0)
-        self.gridLayout.addWidget(self.btnProcurar, 1, 0)
-        self.gridLayout.addWidget(self.btnAlterar, 2, 0)
-        self.gridLayout.addWidget(self.btnDeletar, 3, 0)
-        self.gridLayout.addWidget(self.btnComprar, 4, 0)
-        self.gridLayout.addWidget(self.btnVender, 5, 0)
-        self.gridLayout.addWidget(self.btnVisualizar, 6, 0)
-        self.gridLayout.addWidget(self.btnSair, 7, 1)
+        self.gridLayout.addWidget(self.btnAlterar, 1, 0)
+        self.gridLayout.addWidget(self.btnDeletar, 2, 0)
+        self.gridLayout.addWidget(self.btnComprar, 3, 0)
+        self.gridLayout.addWidget(self.btnVender, 4, 0)
+        self.gridLayout.addWidget(self.btnVisualizar, 5, 0)
+        self.gridLayout.addWidget(self.btnSair, 6, 1)
         self.setFixedSize(360, 0)
 
     def showCadastrar(self):
@@ -100,15 +97,6 @@ class EstoqueCar(ButtonView):
             peca = w.linePeca.text().upper()
             qtd = int(w.lineQtd.text())
             listaPecas.append({'nome': peca, 'qtd': qtd})
-    def showProcurar(self):
-        w = messageBoxPeca('Procurar', self)
-        if w.exec():
-            busca = w.linePeca.text().upper()
-            for peca in listaPecas:
-                if busca == peca['nome']:
-                    print('Peça Encontrada')
-                    return
-            print('Peça não encontrada')
     def showAlterar(self):
         w = comboBoxPeca('Alterar', self)
         if w.exec():
