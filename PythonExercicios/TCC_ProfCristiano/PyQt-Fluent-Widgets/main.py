@@ -1,7 +1,10 @@
 import sys
 
 from PyQt5.QtWidgets import QApplication, QWidget, QGridLayout
+from PyQt5.QtGui import QIntValidator
 from qfluentwidgets import PrimaryPushButton, LineEdit, MessageBoxBase, SubtitleLabel, PushButton, ComboBox
+
+listaPecas = []
 
 class messageBoxPeca(MessageBoxBase):
     def __init__(self, acao, parent=None):
@@ -16,6 +19,7 @@ class messageBoxPeca(MessageBoxBase):
         self.viewLayout.addWidget(self.linePeca)
         if acao == 'Cadastrar':
             self.lineQtd = LineEdit(self)
+            self.lineQtd.setValidator(QIntValidator(1, 99, self))
             self.lineQtd.setPlaceholderText('Informe a quantidade')
             self.viewLayout.addWidget(self.lineQtd)
 
@@ -32,14 +36,16 @@ class comboBoxPeca(MessageBoxBase):
 
         self.comboBox.setPlaceholderText('Selecione a peça')
 
-        items = ['A', 'B', 'C']
-        self.comboBox.addItems(items)
+        for peca in listaPecas:
+            self.comboBox.addItem(peca['nome'])
+
         self.comboBox.setCurrentIndex(-1)
 
         self.viewLayout.addWidget(self.titleLabel)
         self.viewLayout.addWidget(self.comboBox)
         if acao != 'Excluir':
             self.lineEdit = LineEdit(self)
+            self.lineEdit.setValidator(QIntValidator(1, 99, self))
             if acao == 'Alterar':
                 self.lineEdit.setPlaceholderText('Informe o novo nome')
             else:
@@ -91,37 +97,41 @@ class EstoqueCar(ButtonView):
     def showCadastrar(self):
         w = messageBoxPeca('Cadastrar', self)
         if w.exec():
-            peca = w.linePeca.text()
-            qtd = w.lineQtd.text()
-            print(f'{peca.upper()}: {qtd}')
+            peca = w.linePeca.text().upper()
+            qtd = int(w.lineQtd.text())
+            listaPecas.append({'nome': peca, 'qtd': qtd})
     def showProcurar(self):
         w = messageBoxPeca('Procurar', self)
         if w.exec():
-            peca = w.lineEdit.text()
-            print(peca.upper())
+            busca = w.linePeca.text().upper()
+            for peca in listaPecas:
+                if busca == peca['nome']:
+                    print('Peça Encontrada')
+                    return
+            print('Peça não encontrada')
     def showAlterar(self):
         w = comboBoxPeca('Alterar', self)
         if w.exec():
-            peca = w.comboBox.currentIndex()
-            novaPeca = w.lineEdit.text()
-            print(f'Alteração peça índice {peca} para {novaPeca}')
+            indice = w.comboBox.currentIndex()
+            novaPeca = w.lineEdit.text().upper()
+            listaPecas[indice]['nome'] = novaPeca
     def showExcluir(self):
         w = comboBoxPeca('Excluir', self)
         if w.exec():
-            peca = w.comboBox.currentIndex()
-            print(f'Exclusão da peça {peca}')
+            indice = w.comboBox.currentIndex()
+            print(f'Removido item {listaPecas.pop(indice)}')
     def showComprar(self):
         w = comboBoxPeca('Comprar', self)
         if w.exec():
-            peca = w.comboBox.currentIndex()
-            qtd = w.lineEdit.text()
-            print(f'Compra de {qtd} unidades da peça {peca}')
+            indice = w.comboBox.currentIndex()
+            qtd = int(w.lineEdit.text())
+            listaPecas[indice]['qtd'] += qtd
     def showVender(self):
         w = comboBoxPeca('Vender', self)
         if w.exec():
-            peca = w.comboBox.currentIndex()
-            qtd = w.lineEdit.text()
-            print(f'Venda de {qtd} unidades da peça {peca}')
+            indice = w.comboBox.currentIndex()
+            qtd = int(w.lineEdit.text())
+            listaPecas[indice]['qtd'] -= qtd
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
