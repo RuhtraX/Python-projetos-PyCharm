@@ -2,9 +2,31 @@ import sys
 
 from PyQt5.QtWidgets import QApplication, QWidget, QGridLayout, QVBoxLayout, QTableWidgetItem
 from PyQt5.QtGui import QIntValidator
-from qfluentwidgets import PrimaryPushButton, LineEdit, MessageBoxBase, SubtitleLabel, PushButton, ComboBox, TableWidget
+from PyQt5.QtCore import Qt
+from qfluentwidgets import PrimaryPushButton, LineEdit, MessageBoxBase, SubtitleLabel, PushButton, ComboBox, TableWidget, BodyLabel
 
 listaPecas = []
+
+class Alerta(QWidget):
+    def __init__(self, mensagem = '', parent=None):
+        super().__init__(parent)
+        self.setWindowTitle('Atenção!')
+        self.vBoxLayout = QVBoxLayout(self)
+        self.txt = BodyLabel(mensagem)
+        self.btn = PrimaryPushButton('Ok')
+
+        self.btn.clicked.connect(self.close)
+
+        self.btn.setFixedWidth(64)
+        self.btn.setCursor(Qt.CursorShape.PointingHandCursor)
+        self.vBoxLayout.setSpacing(12)
+        self.vBoxLayout.setContentsMargins(20, 16, 20, 16)
+        self.vBoxLayout.addWidget(self.txt)
+        self.vBoxLayout.addWidget(self.btn)
+        self.setFixedSize(240,120)
+
+    def setMensagem(self, mensagem: str):
+        self.txt.setText(mensagem)
 
 class TabelaEstoque(QWidget):
     def __init__(self):
@@ -50,6 +72,9 @@ class messageBoxPeca(MessageBoxBase):
         self.yesButton.setText(acao)
         self.cancelButton.setText('Cancelar')
 
+        self.yesButton.setCursor(Qt.CursorShape.PointingHandCursor)
+        self.cancelButton.setCursor(Qt.CursorShape.PointingHandCursor)
+
         self.widget.setMinimumWidth(320)
 
 class comboBoxPeca(MessageBoxBase):
@@ -93,18 +118,25 @@ class EstoqueCar(ButtonView):
         # push button
         self.btnCadastrar = PrimaryPushButton('Cadastar Peça')
         self.btnCadastrar.clicked.connect(self.showCadastrar)
+        self.btnCadastrar.setCursor(Qt.CursorShape.PointingHandCursor)
         self.btnAlterar = PrimaryPushButton('Alterar Peça')
         self.btnAlterar.clicked.connect(self.showAlterar)
+        self.btnAlterar.setCursor(Qt.CursorShape.PointingHandCursor)
         self.btnDeletar = PrimaryPushButton('Excluir Peça')
         self.btnDeletar.clicked.connect(self.showExcluir)
+        self.btnDeletar.setCursor(Qt.CursorShape.PointingHandCursor)
         self.btnComprar = PrimaryPushButton('Comprar Peça')
         self.btnComprar.clicked.connect(self.showComprar)
+        self.btnComprar.setCursor(Qt.CursorShape.PointingHandCursor)
         self.btnVender = PrimaryPushButton('Vender Peça')
         self.btnVender.clicked.connect(self.showVender)
+        self.btnVender.setCursor(Qt.CursorShape.PointingHandCursor)
         self.btnVisualizar = PrimaryPushButton('Visualizar Estoque')
         self.btnVisualizar.clicked.connect(self.showEstoque)
+        self.btnVisualizar.setCursor(Qt.CursorShape.PointingHandCursor)
         self.btnSair = PushButton('Sair')
         self.btnSair.clicked.connect(self.close)
+        self.btnSair.setCursor(Qt.CursorShape.PointingHandCursor)
 
         self.gridLayout = QGridLayout(self)
         self.gridLayout.addWidget(self.btnCadastrar, 0, 0)
@@ -148,8 +180,12 @@ class EstoqueCar(ButtonView):
         if w.exec():
             indice = w.comboBox.currentIndex()
             qtd = int(w.lineEdit.text())
-            listaPecas[indice][1] -= qtd
-            w2.AtualizaTabela()
+            if qtd <= listaPecas[indice][1]:
+                listaPecas[indice][1] -= qtd
+                w2.AtualizaTabela()
+            else:
+                w3.setMensagem('Estoque insuficiente.')
+                w3.show()
     def showEstoque(self):
         w2.show()
 
@@ -158,5 +194,6 @@ if __name__ == '__main__':
 
     w1 = EstoqueCar()
     w2 = TabelaEstoque()
+    w3 = Alerta()
     w1.show()
     app.exec_()
