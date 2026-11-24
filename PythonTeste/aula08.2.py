@@ -1,5 +1,9 @@
 from math import sqrt
-num=int(input('digite um número: '))
+num=input('digite um número: ')
+while not num.isnumeric():
+	print(f'{num} não é um número. Tente novamente.')
+	num=input('digite um número: ')
+num = int(num)
 raiz=sqrt(num)
 print('a raiz de {} é igual a {:.2f}'.format(num,raiz))
 
