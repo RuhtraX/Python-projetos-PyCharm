@@ -44,7 +44,7 @@ class TabelaEstoque(QWidget):
 
         self.tableView.setHorizontalHeaderLabels(['Nome', 'Quantidade'])
         self.vBoxLayout.addWidget(self.tableView)
-        self.setMinimumSize(240, 180)
+        self.setMinimumSize(360, 420)
 
     def AtualizaTabela(self):
         self.tableView.setRowCount(len(listaPecas))
@@ -94,7 +94,7 @@ class comboBoxPeca(MessageBoxBase):
         self.viewLayout.addWidget(self.comboBox)
         if acao != 'Excluir':
             self.lineEdit = LineEdit(self)
-            if acao == 'Alterar':
+            if acao == 'Renomear':
                 self.lineEdit.setPlaceholderText('Informe o novo nome')
             else:
                 self.lineEdit.setValidator(QIntValidator(1, 99, self))
@@ -119,9 +119,9 @@ class EstoqueCar(ButtonView):
         self.btnCadastrar = PrimaryPushButton('Cadastar Peça')
         self.btnCadastrar.clicked.connect(self.showCadastrar)
         self.btnCadastrar.setCursor(Qt.CursorShape.PointingHandCursor)
-        self.btnAlterar = PrimaryPushButton('Alterar Peça')
-        self.btnAlterar.clicked.connect(self.showAlterar)
-        self.btnAlterar.setCursor(Qt.CursorShape.PointingHandCursor)
+        self.btnRenomear = PrimaryPushButton('Renomear Peça')
+        self.btnRenomear.clicked.connect(self.showRenomear)
+        self.btnRenomear.setCursor(Qt.CursorShape.PointingHandCursor)
         self.btnDeletar = PrimaryPushButton('Excluir Peça')
         self.btnDeletar.clicked.connect(self.showExcluir)
         self.btnDeletar.setCursor(Qt.CursorShape.PointingHandCursor)
@@ -140,13 +140,13 @@ class EstoqueCar(ButtonView):
 
         self.gridLayout = QGridLayout(self)
         self.gridLayout.addWidget(self.btnCadastrar, 0, 0)
-        self.gridLayout.addWidget(self.btnAlterar, 1, 0)
+        self.gridLayout.addWidget(self.btnRenomear, 1, 0)
         self.gridLayout.addWidget(self.btnDeletar, 2, 0)
         self.gridLayout.addWidget(self.btnComprar, 3, 0)
         self.gridLayout.addWidget(self.btnVender, 4, 0)
         self.gridLayout.addWidget(self.btnVisualizar, 5, 0)
         self.gridLayout.addWidget(self.btnSair, 6, 1)
-        self.setFixedSize(360, 0)
+        self.setFixedSize(600, 400)
 
     def showCadastrar(self):
         w = messageBoxPeca('Cadastrar', self)
@@ -155,8 +155,8 @@ class EstoqueCar(ButtonView):
             qtd = int(w.lineQtd.text())
             listaPecas.append([peca, qtd])
             w2.AtualizaTabela()
-    def showAlterar(self):
-        w = comboBoxPeca('Alterar', self)
+    def showRenomear(self):
+        w = comboBoxPeca('Renomear', self)
         if w.exec():
             indice = w.comboBox.currentIndex()
             novaPeca = w.lineEdit.text().upper()
