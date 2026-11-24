@@ -1,6 +1,6 @@
 import sys
 
-from PyQt5.QtWidgets import QApplication, QWidget, QGridLayout, QVBoxLayout, QTableWidgetItem
+from PyQt5.QtWidgets import QApplication, QWidget, QGridLayout, QVBoxLayout, QTableWidgetItem, QAbstractItemView
 from PyQt5.QtGui import QIntValidator
 from PyQt5.QtCore import Qt
 from qfluentwidgets import PrimaryPushButton, LineEdit, MessageBoxBase, SubtitleLabel, PushButton, ComboBox, TableWidget, BodyLabel
@@ -39,6 +39,8 @@ class TabelaEstoque(QWidget):
         self.tableView.setBorderRadius(4)
 
         self.tableView.setColumnCount(2)
+
+        self.tableView.setEditTriggers(QAbstractItemView.NoEditTriggers)
 
         self.AtualizaTabela()
 
