@@ -1,8 +1,16 @@
 nome=input('qual seu nome? ')
 print('prazer em te conhecer {:=^20}!'.format(nome))
 
-n1=int(input('digite um valor: '))
-n2=int(input('digite outro valor: '))
+n1 = input('Digite um número: ')
+while not n1.isnumeric():
+	print(f'{n1} não é um número. Tente novamente.')
+	n1 = input('Digite um número: ')
+n2 = input('Digite outro número: ')
+while not n2.isnumeric():
+	print(f'{n2} não é um número. Tente novamente.')
+	n2 = input('Digite outro número: ')
+n1 = int(n1)
+n2 = int(n2)
 s=n1+n2
 sub=n1-n2
 d=n1/n2
