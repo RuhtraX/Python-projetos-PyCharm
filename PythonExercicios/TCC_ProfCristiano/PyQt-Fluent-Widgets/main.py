@@ -28,32 +28,6 @@ class Alerta(QWidget):
     def setMensagem(self, mensagem: str):
         self.txt.setText(mensagem)
 
-class TabelaEstoque(QWidget):
-    def __init__(self):
-        super().__init__()
-        self.setWindowTitle('Estoque')
-        self.vBoxLayout = QVBoxLayout(self)
-        self.tableView = TableWidget(self)
-
-        self.tableView.setBorderVisible(True)
-        self.tableView.setBorderRadius(4)
-
-        self.tableView.setColumnCount(2)
-
-        self.tableView.setEditTriggers(QAbstractItemView.NoEditTriggers)
-
-        self.AtualizaTabela()
-
-        self.tableView.setHorizontalHeaderLabels(['Nome', 'Quantidade'])
-        self.vBoxLayout.addWidget(self.tableView)
-        self.setMinimumSize(360, 420)
-
-    def AtualizaTabela(self):
-        self.tableView.setRowCount(len(listaPecas))
-        for i, peca in enumerate(listaPecas):
-            for j in range(2):
-                self.tableView.setItem(i, j, QTableWidgetItem(str(peca[j])))
-
 class messageBoxPeca(MessageBoxBase):
     def __init__(self, acao, parent=None):
         super().__init__(parent)
@@ -133,12 +107,20 @@ class EstoqueCar(ButtonView):
         self.btnVender = PrimaryPushButton('Vender Peça')
         self.btnVender.clicked.connect(self.showVender)
         self.btnVender.setCursor(Qt.CursorShape.PointingHandCursor)
-        self.btnVisualizar = PrimaryPushButton('Visualizar Estoque')
-        self.btnVisualizar.clicked.connect(self.showEstoque)
-        self.btnVisualizar.setCursor(Qt.CursorShape.PointingHandCursor)
         self.btnSair = PushButton('Sair')
         self.btnSair.clicked.connect(self.close)
         self.btnSair.setCursor(Qt.CursorShape.PointingHandCursor)
+
+        self.tableView = TableWidget(self)
+
+        self.tableView.setBorderVisible(True)
+        self.tableView.setBorderRadius(4)
+
+        self.tableView.setColumnCount(2)
+
+        self.tableView.setEditTriggers(QAbstractItemView.NoEditTriggers)
+
+        self.tableView.setHorizontalHeaderLabels(['Nome', 'Quantidade'])
 
         self.gridLayout = QGridLayout(self)
         self.gridLayout.addWidget(self.btnCadastrar, 0, 0)
@@ -146,8 +128,8 @@ class EstoqueCar(ButtonView):
         self.gridLayout.addWidget(self.btnDeletar, 2, 0)
         self.gridLayout.addWidget(self.btnComprar, 3, 0)
         self.gridLayout.addWidget(self.btnVender, 4, 0)
-        self.gridLayout.addWidget(self.btnVisualizar, 5, 0)
-        self.gridLayout.addWidget(self.btnSair, 6, 1)
+        self.gridLayout.addWidget(self.tableView, 0, 1, 5, 1)
+        self.gridLayout.addWidget(self.btnSair, 5, 2)
         self.setFixedSize(600, 400)
 
     def showCadastrar(self):
@@ -156,27 +138,27 @@ class EstoqueCar(ButtonView):
             peca = w.linePeca.text().upper()
             qtd = int(w.lineQtd.text())
             listaPecas.append([peca, qtd])
-            w2.AtualizaTabela()
+            self.AtualizaTabela()
     def showRenomear(self):
         w = comboBoxPeca('Renomear', self)
         if w.exec():
             indice = w.comboBox.currentIndex()
             novaPeca = w.lineEdit.text().upper()
             listaPecas[indice][0] = novaPeca
-            w2.AtualizaTabela()
+            self.AtualizaTabela()
     def showExcluir(self):
         w = comboBoxPeca('Excluir', self)
         if w.exec():
             indice = w.comboBox.currentIndex()
             listaPecas.pop(indice)
-            w2.AtualizaTabela()
+            self.AtualizaTabela()
     def showComprar(self):
         w = comboBoxPeca('Comprar', self)
         if w.exec():
             indice = w.comboBox.currentIndex()
             qtd = int(w.lineEdit.text())
             listaPecas[indice][1] += qtd
-            w2.AtualizaTabela()
+            self.AtualizaTabela()
     def showVender(self):
         w = comboBoxPeca('Vender', self)
         if w.exec():
@@ -184,18 +166,20 @@ class EstoqueCar(ButtonView):
             qtd = int(w.lineEdit.text())
             if qtd <= listaPecas[indice][1]:
                 listaPecas[indice][1] -= qtd
-                w2.AtualizaTabela()
+                self.AtualizaTabela()
             else:
                 w3.setMensagem('Estoque insuficiente.')
                 w3.show()
-    def showEstoque(self):
-        w2.show()
+    def AtualizaTabela(self):
+        self.tableView.setRowCount(len(listaPecas))
+        for i, peca in enumerate(listaPecas):
+            for j in range(2):
+                self.tableView.setItem(i, j, QTableWidgetItem(str(peca[j])))
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
 
     w1 = EstoqueCar()
-    w2 = TabelaEstoque()
     w3 = Alerta()
     w1.show()
     app.exec_()
